@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Alert</title>
+    <script src="alert.js"></script>
+</head>
+
+<body>
+
+    <button id="prompt-button">Open Prompt</button>
+
+    <script>
+        var promptButton = document.getElementById('prompt-button');
+        promptButton.addEventListener('click', function () {
+            Alert.prompt('Please Input Value:', 0, {
+                placeholder: '(Default Value: 0)'
+            }).then(value => {
+                Alert.showMessage(`You Input = ${value}`);
+            });
+        });
+
+        Alert.showMessage('Hello~').then(() => {
+            Alert.showMessage('You Closed.');
+        });
+    </script>
+</body>
+
+</html>
