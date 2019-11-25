@@ -38,7 +38,6 @@ class Alert {
 
         let button = document.createElement('button');
         button.innerText = options.buttonText || 'OK';
-        button.style.padding = '3px 7px';
         button.style.background = '#ebbb72';
         button.style.border = '0';
         button.style.borderRadius = '5px';
