@@ -1,6 +1,37 @@
 class Alert {
 
     constructor(options = {}) {
+        var createButton = function (options = {}) {
+            let button = document.createElement('button');
+            button.innerText = options.buttonText || 'OK';
+            button.style.background = '#ebbb72';
+            button.style.border = '0';
+            button.style.borderRadius = '5px';
+            button.style.minWidth = '50px';
+            button.style.height = '30px';
+            button.style.margin = '8px';
+            button.style.cursor = 'pointer';
+
+            button.addEventListener('mouseover', function () {
+                this.style.background = '#ebbb7277';
+            });
+
+            button.addEventListener('mouseleave', function () {
+                this.style.background = '#ebbb72';
+            });
+
+            button.addEventListener('click', () => {
+                document.removeEventListener('keydown', globalEnterEvent);
+                alert.style.transform = 'scale(0)';
+                setTimeout(() => {
+                    ele.remove();
+                    options.resolve(options.value);
+                }, 350);
+            });
+
+            return button;
+        }
+
         let ele = document.createElement('div');
         ele.style.width = '100vw';
         ele.style.height = '100vh';
@@ -35,41 +66,27 @@ class Alert {
         msg.append(options.messageBody);
         msg.style.textAlign = options.textAlign || 'left';
         msg.style.padding = '0 10px';
+        var buttons = [];
 
-        let button = document.createElement('button');
-        button.innerText = options.buttonText || 'OK';
-        button.style.background = '#ebbb72';
-        button.style.border = '0';
-        button.style.borderRadius = '5px';
-        button.style.minWidth = '50px';
-        button.style.height = '30px';
-        button.style.margin = '8px';
-        button.style.cursor = 'pointer';
-
-        button.addEventListener('mouseover', function () {
-            this.style.background = '#ebbb7277';
-        });
-
-        button.addEventListener('mouseleave', function () {
-            this.style.background = '#ebbb72';
-        });
-
-        var globalEnterEvent = function (e) {
-            if (e.keyCode == 13) {
-                button.click();
+        if (options.confirm) {
+            buttons.push(createButton(Object.assign({
+                buttonText: 'Yes',
+                value: true
+            }, options)));
+            buttons.push(createButton(Object.assign({
+                buttonText: 'No',
+                value: false
+            }, options)));
+        } else {
+            buttons.push(createButton(options));
+            var globalEnterEvent = function (e) {
+                if (e.keyCode == 13) {
+                    buttons[options.defaultButton || 0].click();
+                }
             }
+
+            document.addEventListener('keydown', globalEnterEvent)
         }
-
-        button.addEventListener('click', () => {
-            document.removeEventListener('keydown', globalEnterEvent);
-            alert.style.transform = 'scale(0)';
-            setTimeout(() => {
-                ele.remove();
-                options.resolve();
-            }, 350);
-        });
-
-        document.addEventListener('keydown', globalEnterEvent)
 
         header.addEventListener('mousedown', function (e) {
             header.style.cursor = 'grabbing';
@@ -94,7 +111,8 @@ class Alert {
 
         alert.appendChild(header);
         alert.appendChild(msg);
-        alert.appendChild(button);
+        for (let button of buttons)
+            alert.appendChild(button);
         ele.append(alert);
         document.body.appendChild(ele);
 
@@ -112,6 +130,17 @@ class Alert {
                 ...options,
                 messageBody: message,
                 resolve
+            });
+        });
+    }
+
+    static async confirm(message, defaultValue = false, options = {}) {
+        return new Promise(resolve => {
+            return new Alert({
+                ...options,
+                confirm: true,
+                messageBody: message,
+                resolve,
             });
         });
     }
