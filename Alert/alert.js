@@ -172,7 +172,7 @@ class Alert {
                 }
             });
         }).then(() => {
-            return +input.value || defaultValue;
+            return +input.value || input.value || defaultValue;
         });
     }
 
