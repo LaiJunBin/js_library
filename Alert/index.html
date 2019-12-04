@@ -12,14 +12,22 @@
 <body>
 
     <button id="prompt-button">Open Prompt</button>
-
+    <button id="confirm-button">Open Confirm</button>
     <script>
         var promptButton = document.getElementById('prompt-button');
+        var confirmButton = document.getElementById('confirm-button');
+
         promptButton.addEventListener('click', function () {
             Alert.prompt('Please Input Value:', 0, {
                 placeholder: '(Default Value: 0)'
             }).then(value => {
                 Alert.showMessage(`You Input = ${value}`);
+            });
+        });
+
+        confirmButton.addEventListener('click', function () {
+            Alert.confirm('Yes Or No?').then(res => {
+                Alert.showMessage(`You Click ${res? 'Yes': 'No'}`);
             });
         });
 
