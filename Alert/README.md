@@ -2,13 +2,16 @@
 
 > 具有拖拉功能，
 
-提供以下兩個方法
+提供以下方法
 * async Alert.showMessage(message, options) : Promise
 * async Alert.prompt(message, defaultValue, options) : Promise
+* async Alert.confirm(message, options) : Promise
 
-showMessage的Promise沒有值，而prompt的Promise的值為使用者在輸入框輸入的值或預設值。
+showMessage的Promise沒有值
+prompt的Promise的值為使用者在輸入框輸入的值或預設值。
+confirm的Promise的值為使用者選擇的結果。
 
-兩個方法都具有以下選項
+方法都具有以下選項
 
 | Option      | 用意     |
 |-------------|----------|
