@@ -8,7 +8,9 @@
 * async Alert.confirm(message, options) : Promise
 
 showMessage的Promise沒有值
+
 prompt的Promise的值為使用者在輸入框輸入的值或預設值。
+
 confirm的Promise的值為使用者選擇的結果。
 
 方法都具有以下選項
