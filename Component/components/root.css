@@ -1,0 +1,6 @@
+/* only for root component style */
+div{
+    background-color: #39f;
+    padding: 5px;
+    color: #ffffff;
+}
