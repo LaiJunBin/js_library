@@ -5,13 +5,13 @@
 ## Basic usage
 
 index.html
-```html5
+```html
 <app-root></app-root>
 <script src="./main.js"></script>
 ```
 
 template.html
-```html5
+```html
 <div>hello {{ count }}</div>
 <button (click)="counting()">Counting!</button>
 ```
