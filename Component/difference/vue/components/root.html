@@ -1,0 +1,10 @@
+<div>
+    <h2>root component</h2>
+    {{ $attrs.test }}
+    <slot></slot>
+    <div>
+        count: {{ count }}
+        <button @click="add()">count++</button>
+    </div>
+    <app-test></app-test>
+</div>
