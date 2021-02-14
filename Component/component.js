@@ -35,7 +35,7 @@ window.Component = (function(){
 
             return service => {
                 if (service) {
-                    return component.service = new (class Observable extends service {
+                    component.service = new (class Observable extends service{
                         constructor(component) {
                             super();
                             component.$instance.$init = function(){
